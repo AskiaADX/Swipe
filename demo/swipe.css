@@ -1,0 +1,281 @@
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+.swipe {
+    padding-top: 2em;
+    position: relative;
+    margin: 0 auto;
+    padding: 3em 0 2em 0;
+    width: 100%;
+    max-width: 900px;
+}
+.swipe * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.swipe input[type="radio"] {
+    display: none;
+}
+
+.swipe .imgZoom {
+    position: absolute;
+    background: url(magnifyingGlass.png) center center no-repeat;
+    bottom: 7px;
+    width: 22px;
+    height: 22px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.swipe .imgZoom:hover {
+    border: 1px solid transparent;
+}
+
+#adc_1 .imgZoom {
+    right: 5px;
+}
+
+.swipe-row {
+    position: relative;
+    width: 100%;
+    min-height: 100px;
+}
+
+.swipe-row+.swipe-row {
+    margin-top: 0.5em;
+}
+
+.swipe-row-headline {
+    min-height: 3.9em;
+}
+
+.swipe-row-headline h2 {
+    text-align: center;
+    margin: 1em 0;
+    font-size: 1.2em;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    position: absolute;
+    width: 25%;
+}
+
+.swipe-row-headline h2.swipe-headline-left {
+    left: 0;
+}
+
+.swipe-row-headline h2.swipe-headline-right {
+    right: 0;
+}
+
+.swipe-value-block h2 {
+    font-size: 1.2em;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    margin: 0;
+}
+
+.swipe-value-block {
+    position: absolute;
+    top: 0;
+    width: 25%;
+    height: 100%;
+    bottom: 57px;
+    z-index: 0;
+    text-align: center;
+    padding: 1%;
+    border-style: dashed;
+}
+
+.swipe-value-block-left {
+    left: 0;
+    background-color: rgba(255, 0, 0, 0.15);
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-width: 2px 0 2px 2px;
+    border-color: rgba(255, 0, 0, 0.25);
+}
+
+.swipe-value-block-right {
+    right: 0;
+    background-color: rgba(102, 102, 255, 0.15);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-width: 2px 2px 2px 0;
+    border-color: rgba(102, 102, 255, 0.25);
+}
+
+.swipe-col {
+    position: absolute;
+    width: 33%;
+    top: 0;
+    bottom: 10px;
+    min-height: 100px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity .3s;
+    -webkit-transition: opacity .3s;
+    -o-transition: opacity .3s;
+    -moz-transition: opacity .3s;
+}
+
+.swipe-col-left {
+    left: 10px;
+    width: calc(25% - 10px);
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background-image: -webkit-gradient(linear, left center, right center, from(rgba(255, 0, 0, 0.10)), to(transparent));
+    background-image: -webkit-linear-gradient(left, rgba(255, 0, 0, 0.10), transparent);
+    background-image: -moz-linear-gradient(left, rgba(255, 0, 0, 0.10), transparent);
+    background-image: -o-linear-gradient(left, rgba(255, 0, 0, 0.10), transparent);
+    background-image: -ms-linear-gradient(left, rgba(255, 0, 0, 0.10), transparent);
+    background-image: linear-gradient(left, rgba(255, 0, 0, 0.10), transparent);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15) inset;
+    cursor: pointer;
+}
+
+.swipe-col-left:hover {
+    opacity: 1;
+}
+
+.swipe-col-right {
+    right: 10px;
+    width: calc(25% - 10px);
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-image: linear-gradient(to right, rgba(102, 102, 255, 0.10), transparent);
+    box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.15) inset;
+    cursor: pointer;
+}
+
+.swipe-col-right:hover {
+    opacity: 1;
+}
+
+.swipe-image {
+    position: absolute;
+    min-height: 100px;
+    width: 60%;
+    left: 20%;
+    padding: 1%;
+    background: #fff;
+    text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    transition: box-shadow 0.3s ease;
+    transition-property: transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+    transform: translate(0, 0);
+    cursor: move;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.swipe-image.swipe-left {
+    box-shadow: 0 0 5px 0 rgba(255, 0, 0, 1);
+}
+
+.swipe-image.swipe-right {
+    box-shadow: 0 0 5px 0 rgba(102, 102, 255, 1);
+}
+
+.swipe-image img {
+    max-width: 80%;
+    width: 100%;
+    pointer-events: none;
+    border: 0;
+}
+
+@media screen and (min-width: 480px) {
+    .swipe-image img {
+        max-width: 200px;
+    }
+}
+
+/* simplbox lightbox styling */
+#simplbox {
+    position: fixed;
+    top: 0;
+    background-color: #ffffff;
+    border: 1px solid #999999;
+    ms-touch-action: none;
+    touch-action: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
+    z-index: 10;
+}
+
+#simplbox-overlay {
+    background-color: #e5e5e5;
+    filter: alpha(opacity=60);
+    background-color: rgba(0, 0, 0, 0.1);
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#simplbox-loading {
+    position: fixed;
+    z-index: 13;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #cccccc;
+    -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+    animation: rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes rotateplane {
+    0% {
+        -webkit-transform: perspective(120px)
+    }
+
+    50% {
+        -webkit-transform: perspective(120px) rotateY(180deg)
+    }
+
+    100% {
+        -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg)
+    }
+}
+
+@keyframes rotateplane {
+    0% {
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+    }
+
+    50% {
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+    }
+
+    100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    }
+}

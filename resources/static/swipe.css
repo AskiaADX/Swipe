@@ -1,0 +1,228 @@
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+	-ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+.swipe {
+    padding-top: 2em;
+    position: relative;
+    padding: 3em 0 2em 0;
+    width: 100%;
+}
+.swipe * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.swipe .imgZoom {
+    position: absolute;
+    background: url(magnifyingGlass.png) center center no-repeat;
+    bottom: 7px;
+    width: 22px;
+    height: 22px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.swipe .imgZoom:hover {
+    border: 1px solid transparent;
+}
+
+.swipe .imgZoom {
+    right: 5px;
+}
+
+.swipe-row {
+    position: relative;
+    width: 100%;
+    min-height: 100px;
+    margin: 5px 0 20px 0;
+	line-height: 1.0rem;
+}
+
+.swipe-row+.swipe-row {
+    margin-top: 0.5em;
+}
+
+.swipe-row-headline {
+    min-height: 3.9em;
+}
+
+.swipe-row-headline h2 {
+    text-align: center;
+    margin: 1em 0;
+    font-size: 1.2em;
+    position: absolute;
+    width: 33%;
+}
+
+.swipe-row-headline h2.swipe-headline-left {
+    left: 0;
+}
+
+.swipe-row-headline h2.swipe-headline-right {
+    right: 0;
+}
+
+.swipe-value-block h2 {
+    position: relative;
+    font-size: 1.2em;
+    margin: 0;
+    z-index: 1000;
+}
+
+.swipe-value-block {
+    position: absolute;
+    top: 0;
+    width: 33%;
+    height: 100%;
+    bottom: 57px;
+    /* z-index: 0; */
+    text-align: center;
+    padding: 1%;
+}
+
+.swipe-value-block-left {
+    left: 0;
+}
+
+.swipe-value-block-right {
+    right: 0;
+}
+
+.swipe-col {
+    position: absolute;
+    display: flex;
+    width: 32%;
+    top: 0;
+    bottom: 10px;
+    min-height: 100px;
+    text-align: center;
+    transition: opacity .3s;
+    -webkit-transition: opacity .3s;
+    -o-transition: opacity .3s;
+    -moz-transition: opacity .3s;
+}
+
+.swipe-col-left {
+    left: 0.5em;
+    width: calc(32% - 0.5em);
+    cursor: pointer;
+}
+
+.swipe-col-right {
+    right: 0.5em;
+    width: calc(32% - 0.5em);
+    cursor: pointer;
+}
+
+.swipe-image {
+    position: relative;
+    min-height: 100px;
+    width: calc(32% - 10px);
+    left: calc(34% + 5px);
+    padding: 1%;
+    text-align: center;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: box-shadow 0.3s ease;
+    transition-property: transform;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-out;
+    transform: translate(0, 0);
+    cursor: move;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.swipe-image-content > div > div {
+    padding-top: 0.5rem;
+}
+
+/* simplbox lightbox styling */
+#simplbox {
+    position: fixed;
+    top: 0;
+    background-color: #ffffff;
+    border: 1px solid #999999;
+    ms-touch-action: none;
+    touch-action: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.75);
+    z-index: 10;
+}
+
+#simplbox-overlay {
+    background-color: #e5e5e5;
+    filter: alpha(opacity=60);
+    background-color: rgba(0, 0, 0, 0.1);
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#simplbox-loading {
+    position: fixed;
+    z-index: 13;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: #cccccc;
+    -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+    animation: rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes rotateplane {
+    0% {
+        -webkit-transform: perspective(120px)
+    }
+
+    50% {
+        -webkit-transform: perspective(120px) rotateY(180deg)
+    }
+
+    100% {
+        -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg)
+    }
+}
+
+@keyframes rotateplane {
+    0% {
+        transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+    }
+
+    50% {
+        transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+        -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+    }
+
+    100% {
+        transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+        -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    }
+}

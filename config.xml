@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<control  xmlns="http://www.askia.com/2.1.0/ADCSchema"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.askia.com/2.1.0/ADCSchema https://raw.githubusercontent.com/AskiaADX/ADXSchema/2.1.0/ADCSchema.xsd"
+          version="2.1.0"
+          askiaCompat="5.4.2">
+  <info>
+    <name>Swipe</name>
+    <guid>19f954f0-adb6-4a41-b7fb-679de5e41369</guid>
+    <version>2.0.0</version>
+    <date>2018-09-05</date>
+    <description><![CDATA[]]></description>
+    <company>Askia</company>
+    <author><![CDATA[Jerome Duparc <jeromed@askia.com>]]></author>
+    <site>https://www.askia.com/</site>
+    <helpURL></helpURL>
+    <categories>
+      <category>General</category>
+    </categories>
+    <constraints>
+      <constraint on="questions" chapter="false" single="true" multiple="false" numeric="false" date="false" open="false" requireParentLoop="true" />
+      <constraint on="controls" responseblock="true" label="false" textbox="false" checkbox="false" listbox="false" radiobutton="false" />
+      <constraint on="responses" max="2" min="2" />
+    </constraints>
+  </info>
+  <outputs defaultOutput="default">
+    <output id="default">
+      <description><![CDATA[Default output]]></description>
+      <content fileName="default.html" type="html" mode="dynamic" position="placeholder" />
+      <content fileName="magnifyingGlass.png" type="image" mode="static" position="none" />
+      <content fileName="swipe.css" type="css" mode="static" position="head" />
+      <content fileName="styles.css" type="css" mode="dynamic" position="head" />
+      <content fileName="simplbox.js" type="javascript" mode="static" position="foot" />
+      <content fileName="swipe.js" type="javascript" mode="static" position="foot" />
+      <content fileName="Initializer.js" type="javascript" mode="dynamic" position="foot" />
+    </output>
+  </outputs>
+  <properties>
+    <category id="general" name="General">
+      <property xsi:type="standardProperty" id="controlWidth" name="Control Max Width" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[The max width of the control]]></description>
+        <value><![CDATA[900px]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="controlAlign" name="Control Alignment" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[The alignment of the control]]></description>
+        <value><![CDATA[center]]></value>
+        <options>
+          <option value="left" text="Left" />
+          <option value="center" text="Center" />
+          <option value="right" text="Right" />
+        </options>
+      </property>
+    </category>
+    <category id="items" name="Items">
+      <property xsi:type="standardProperty" id="showItems" name="Show items" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Show items]]></description>
+        <value><![CDATA[3]]></value>
+        <options>
+          <option value="1" text="Only caption" />
+          <option value="2" text="Only image" />
+          <option value="3" text="Caption and image" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="showItemsImagesZoom" name="Show items images zoom" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Show items images zoom]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="fontColour" name="Font colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The font colour]]></description>
+        <value><![CDATA[{%= Theme.BlackColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="backgroundColour" name="Background colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The background colour]]></description>
+        <value><![CDATA[{%= Theme.WhiteColor %}]]></value>
+      </property>
+    </category>
+    <category id="responses" name="Responses">
+      <property xsi:type="standardProperty" id="headerFixed" name="Repeat header" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Repeat header]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="0" text="None" />
+          <option value="1" text="Sticky header" />
+          <option value="2" text="Repeat header every N items" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="repeatnitems" name="Repeat header every N items" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Repeat header every N items]]></description>
+        <value><![CDATA[3]]></value>
+        <options>
+          <option value="0" text="0" />
+          <option value="1" text="1" />
+          <option value="2" text="2" />
+          <option value="3" text="3" />
+          <option value="4" text="4" />
+          <option value="5" text="5" />
+          <option value="6" text="6" />
+          <option value="7" text="7" />
+          <option value="8" text="8" />
+          <option value="9" text="9" />
+          <option value="10" text="10" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="borderStyle" name="Border style" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The style of the border]]></description>
+        <value><![CDATA[solid]]></value>
+        <options>
+          <option value="none" text="None" />
+          <option value="solid" text="Solid" />
+          <option value="dashed" text="Dashed" />
+          <option value="dotted" text="Dotted" />
+          <option value="double" text="Double" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="borderThickness" name="Border thickness" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The thickness of the border]]></description>
+        <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="borderRadius" name="Border radius" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The amount of curve on the table corners]]></description>
+        <value><![CDATA[{%= Theme.BorderRadius %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="fontResponseColour" name="Font response colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The font response colour]]></description>
+        <value><![CDATA[{%= Theme.WhiteColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="textShadowResponseColour" name="Text shadow response colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The text shadow response colour]]></description>
+        <value><![CDATA[{%= Theme.BlackColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="captionCells" name="Caption of the cells when hover" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Caption of the cells when hover]]></description>
+        <value></value>
+      </property>
+    </category>
+    <category id="leftresponse" name="Left Panel">
+      <property xsi:type="standardProperty" id="borderLeftColour" name="Border left colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The border left colour]]></description>
+        <value><![CDATA[{%= Theme.SecondaryDarkColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="backgroundLeftColour" name="Background left colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The background left colour]]></description>
+        <value><![CDATA[{%= Theme.SecondaryColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="backgroundLeftColourHover" name="Background left colour hover" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The background left colour hover]]></description>
+        <value><![CDATA[{%= Theme.SecondaryLightColor %}]]></value>
+      </property>
+    </category>
+    <category id="rightresponse" name="Right Panel">
+      <property xsi:type="standardProperty" id="borderRightColour" name="Border right colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The border right colour]]></description>
+        <value><![CDATA[{%= Theme.PrimaryDarkColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="backgroundRightColour" name="Background right colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The background right colour]]></description>
+        <value><![CDATA[{%= Theme.PrimaryColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="backgroundRightColourHover" name="Background right colour hover" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The background right colour hover]]></description>
+        <value><![CDATA[{%= Theme.PrimaryLightColor %}]]></value>
+      </property>
+    </category>
+    <category id="images" name="Images">
+      <property xsi:type="standardProperty" id="use" name="Use" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Use max width or max height]]></description>
+        <value><![CDATA[2]]></value>
+        <options>
+          <option value="1" text="max-width" />
+          <option value="2" text="max-height" />
+        </options>
+      </property>
+    </category>
+  </properties>
+</control>
