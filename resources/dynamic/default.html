@@ -1,6 +1,6 @@
 {%
 				Dim arResponses = CurrentQuestion.Iteration(CurrentQuestion.ParentLoop.CurrentIteration).AvailableResponses
-				Dim ar = CurrentQuestion.ParentLoop.Answers
+				Dim ar = CurrentQuestion.ParentLoop.AvailableAnswers
 %}
 <div id="adc_{%= CurrentADC.InstanceId %}" class="swipe">
     <div class="swipe-value-block swipe-value-block-left">
