@@ -33,6 +33,10 @@ EndIf
 	width: 100%;
     font-size: {%= Theme.SmallFS %};
 }
+#adc_{%= CurrentADC.InstanceId %} .swipe-image .circle {
+    background-color: rgba({%= CurrentADC.PropValue("fontColour").ToRGB() %},.1);
+    border-radius: {%= CurrentADC.PropValue("borderRadius") %};
+}
 #adc_{%= CurrentADC.InstanceId %} .swipe-value-block {
     border-style: {%= CurrentADC.PropValue("borderStyle") %};
 }
@@ -46,12 +50,10 @@ EndIf
     border-width: {%= CurrentADC.PropValue("borderThickness") %};
     border-color: rgba({%= CurrentADC.PropValue("borderRightColour").ToRGB() %}, 1);
 }
-#adc_{%= CurrentADC.InstanceId %} .swipe-value-block-left,
-#adc_{%= CurrentADC.InstanceId %} .swipe-value-block-left h2 {
+#adc_{%= CurrentADC.InstanceId %} .swipe-value-block-left {
     background-color: rgba({%= CurrentADC.PropValue("backgroundLeftColour").ToRGB() %}, 1);
 }
-#adc_{%= CurrentADC.InstanceId %} .swipe-value-block-right,
-#adc_{%= CurrentADC.InstanceId %} .swipe-value-block-right h2 {
+#adc_{%= CurrentADC.InstanceId %} .swipe-value-block-right {
     background-color: rgba({%= CurrentADC.PropValue("backgroundRightColour").ToRGB() %}, 1);
 }
 #adc_{%= CurrentADC.InstanceId %} .swipe-col-left {

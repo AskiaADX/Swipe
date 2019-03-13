@@ -165,6 +165,35 @@
         });
         img.init();
     }
+    
+    /**
+     * Apply material effect when swipe
+     *
+     * @param {Object} el imgContainer of the item
+     */
+    function materialEffect (el) {
+        var circle, sizew, sizeh, x, y;
+
+        circle = document.createElement('div');
+        circle.setAttribute('class', 'circle');
+        el.appendChild(circle);
+
+        x = (el.offsetLeft - circle.offsetWidth / 2) - (el.offsetWidth / 2);
+        y = (el.offsetTop - circle.offsetHeight / 2);
+
+        sizew = el.offsetWidth;
+        sizeh = el.offsetHeight;
+
+        circle.style.top = y + 'px';
+        circle.style.left = x + 'px';
+        circle.style.width = sizew + 'px';
+        circle.style.height = sizeh + 'px';
+        circle.classList.add("animate");
+
+        return setTimeout(function () {
+            return circle.parentNode.removeChild(circle);
+        }, 300);	
+    }
 
     /**
      * Move the item to the left or right
@@ -194,6 +223,9 @@
             imgContainer.style.MozTransform = 'translate(' + parseInt(toRight) + 'px,0)';
             imgContainer.style.transform = 'translate(' + parseInt(toRight) + 'px,0)';
             addClass(imgContainer, 'swipe-right');
+            setTimeout(function () {
+                materialEffect(imgContainer);
+            }, 200);
         } else {
             var toLeft = (leftElement.offsetLeft - imgContainer.offsetLeft);
             imgContainer.style.msTransform = 'translate(' + parseInt(toLeft) + 'px,0)';
@@ -201,6 +233,9 @@
             imgContainer.style.MozTransform = 'translate(' + parseInt(toLeft) + 'px,0)';
             imgContainer.style.transform = 'translate(' + parseInt(toLeft) + 'px,0)';
             addClass(imgContainer, 'swipe-left');
+            setTimeout(function () {
+                materialEffect(imgContainer);
+            }, 200);
         }
     }
 
