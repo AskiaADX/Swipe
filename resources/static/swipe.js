@@ -165,7 +165,7 @@
         });
         img.init();
     }
-    
+
     /**
      * Apply material effect when swipe
      *
@@ -192,7 +192,7 @@
 
         return setTimeout(function () {
             return circle.parentNode.removeChild(circle);
-        }, 300);	
+        }, 300);
     }
 
     /**
@@ -289,6 +289,11 @@
      */
     function clickLabel (event, that) {
         var el = event.target || event.srcElement;
+
+        if (el.nodeName === 'INPUT') {
+            el = el.parentElement;
+        }
+
         if (el.nodeName === 'LABEL' && el.className.indexOf('swipe-col-right') >= 0) {
             moveSwipe(el.parentElement, 'right');
         } else if (el.nodeName === 'LABEL' && el.className.indexOf('swipe-col-left') >= 0) {
@@ -303,7 +308,7 @@
     }
 
     /**
-     * 
+     *
      */
     function touchStartHandler (event) {
         event.preventDefault;
@@ -322,9 +327,9 @@
             translateCurrentValue: currentItem.style.cssText.substring(currentItem.style.cssText.indexOf('(') + 1, currentItem.style.cssText.indexOf('px')) || 0
         };
     }
-    
+
     /**
-     * 
+     *
      */
     function touchMoveHandler (event) {
         var touches = event.changedTouches;
@@ -332,7 +337,7 @@
         var currentItem = event.currentTarget;
         var maxLeftDistance = parseFloat(currentItem.parentElement.children[0].offsetLeft) - parseFloat(currentItem.offsetLeft);
         var maxRightDistance = -maxLeftDistance;
-        
+
 
         if (touches.length > 1) return;
 
@@ -362,7 +367,7 @@
     }
 
     /**
-     * 
+     *
      */
     function touchEndHandler (event) {
         var touches = event.changedTouches;
@@ -414,7 +419,7 @@
     }
 
     /**
-     * 
+     *
      */
     function mouseStartHandler (event) {
         event.preventDefault;
@@ -437,7 +442,7 @@
     }
 
     /**
-     * 
+     *
      */
     function mouseMoveHandler (event) {
         var touches = event;
@@ -471,7 +476,7 @@
     }
 
     /**
-     * 
+     *
      */
     function mouseEndHandler (event) {
         var touches = event;
@@ -479,7 +484,7 @@
         removeEvent(currentItem, 'mousemove', mouseMoveHandler);
         removeEvent(currentItem, 'mouseup', mouseEndHandler);
         removeEvent(currentItem, 'mouseleave', mouseEndHandler);
-        
+
         var distance = 0;
         var minDistance = 30;
         var maxLeftDistance = parseFloat(currentItem.parentElement.children[0].offsetLeft) - parseFloat(currentItem.offsetLeft);
@@ -536,7 +541,7 @@
         this.headerFixed = options.headerFixed || 0;
         this.currentQuestion = options.currentQuestion || '';
 
-        addEvent(document.getElementById('adc_' + this.instanceId), 'click',
+        addEvent(document.getElementById('adc_' + this.instanceId), 'change',
             (function (passedInElement) {
                 return function (e) {
                     clickLabel(e, passedInElement);
@@ -546,7 +551,7 @@
         addEvent(window, 'resize',
             (function (passedInElement) {
                 return function () {
-                    changeDisplay(passedInElement); 
+                    changeDisplay(passedInElement);
                 };
             }(this)));
 
@@ -566,7 +571,7 @@
             addEvent(zooms[i], 'mousedown', mouseStartHandler);
         }
 
-        changeDisplay(this); 
+        changeDisplay(this);
 
     }
 
