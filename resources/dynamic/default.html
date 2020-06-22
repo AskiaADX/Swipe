@@ -2,6 +2,11 @@
 				Dim arResponses = CurrentQuestion.Iteration(CurrentQuestion.ParentLoop.CurrentIteration).AvailableResponses
 				Dim ar = CurrentQuestion.ParentLoop.AvailableAnswers
 				Dim middleAsDk = CurrentADC.PropValue("middleAsDk")
+				Dim isAllowDK = CurrentQuestion.IsAllowDK
+
+				IF (isAllowDK <> true) Then
+					middleAsDk = "0"
+				EndIf
 %}
 <div id="adc_{%= CurrentADC.InstanceId %}" class="swipe">
     <div class="swipe-value-block swipe-value-block-left">

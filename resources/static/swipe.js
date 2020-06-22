@@ -204,7 +204,7 @@
      */
     function moveSwipe (rowContainer, dir, options) {
 
-        if (options.middleAsDk) {
+        if (useMiddleAsDk) {
           var leftElement = rowContainer.children[0];
           var midElement = rowContainer.children[1];
           var rightElement = rowContainer.children[2];
@@ -266,8 +266,6 @@
      * @param {Object} rowContainer Container of the item to move
      */
     function changeDisplay (that, options) {
-        let middleAsDk = options.middleAsDk;
-
         var leftItems = document.getElementById('adc_' + that.instanceId).querySelectorAll('.swipe-left');
         var rightItems = document.getElementById('adc_' + that.instanceId).querySelectorAll('.swipe-right');
         var middleItems = document.getElementById('adc_' + that.instanceId).querySelectorAll('.swipe-center');
@@ -275,7 +273,7 @@
 
         for (var il = 0, jl = leftItems.length; il < jl; il++) {
             var leftElement;
-            if (middleAsDk) {
+            if (useMiddleAsDk) {
               imgContainer = leftItems[il].parentElement.children[3];
               leftElement = leftItems[il].parentElement.children[0];
             } else {
@@ -296,7 +294,7 @@
         }
         for (var ir = 0, jr = rightItems.length; ir < jr; ir++) {
             var rightElement;
-            if (middleAsDk) {
+            if (useMiddleAsDk) {
               imgContainer = rightItems[ir].parentElement.children[3];
               rightElement = rightItems[ir].parentElement.children[2];
             } else {
@@ -317,7 +315,7 @@
         }
         for (var im = 0, jm = middleItems.length; im < jm; im++) {
             var midElement;
-            if (middleAsDk) {
+            if (useMiddleAsDk) {
               imgContainer = middleItems[im].parentElement.children[3];
               midElement = middleItems[im].parentElement.children[1];
             }
@@ -641,8 +639,14 @@
         this.headerFixed = options.headerFixed || 0;
         this.currentQuestion = options.currentQuestion || '';
         this.middleAsDk = options.middleAsDk || 0;
+        this.isAllowDK = options.isAllowDK;
+
+        let isAllowDK = this.isAllowDK;
 
         useMiddleAsDk = this.middleAsDk;
+        if (!isAllowDK) {
+          useMiddleAsDk = 0;
+        }
 
         addEvent(document.getElementById('adc_' + this.instanceId), 'change',
             (function (passedInElement) {

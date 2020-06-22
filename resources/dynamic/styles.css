@@ -9,6 +9,10 @@ Else
 EndIf
 
 Dim middleAsDk = CurrentADC.PropValue("middleAsDk")
+Dim isAllowDK = CurrentQuestion.IsAllowDK
+IF (isAllowDK <> true) Then
+  middleAsDk = "0"
+EndIf
 %}
 #adc_{%= CurrentADC.InstanceId %} {
     max-width: {%= CurrentADC.PropValue("controlWidth") %};
