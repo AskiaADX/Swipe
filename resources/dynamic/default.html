@@ -1,11 +1,17 @@
 {%
 				Dim arResponses = CurrentQuestion.Iteration(CurrentQuestion.ParentLoop.CurrentIteration).AvailableResponses
 				Dim ar = CurrentQuestion.ParentLoop.AvailableAnswers
+				Dim middleAsDk = CurrentADC.PropValue("middleAsDk")
 %}
 <div id="adc_{%= CurrentADC.InstanceId %}" class="swipe">
     <div class="swipe-value-block swipe-value-block-left">
         <h2 id="adc_{%= CurrentADC.InstanceId %}_thead-left">{%:= arResponses[2].Caption %}</h2>
     </div>
+		{% IF (middleAsDk <> "0") Then %}
+		<div class="swipe-value-block swipe-value-block-middle">
+        <h2 id="adc_{%= CurrentADC.InstanceId %}_thead-middle">{%:= CurrentADC.PropValue("dkPanelCaption") %}</h2>
+    </div>
+		{%EndIf%}
     <div class="swipe-value-block swipe-value-block-right">
         <h2 id="adc_{%= CurrentADC.InstanceId %}_thead-right">{%:= arResponses[1].Caption %}</h2>
     </div>
@@ -26,14 +32,20 @@
     			imagePath = ar.ResourceURL[i]
     			inputName = CurrentQuestion.Iteration(ar[i].Index).InputName()
     			imageId = inputName.Replace("U", "")
+
     			inputValueLeft  = CurrentQuestion.Iteration(ar[i].Index).AvailableResponses[2].InputValue()
     			inputValueRight  = CurrentQuestion.Iteration(ar[i].Index).AvailableResponses[1].InputValue()
     			attrCheckedLeft = On(CurrentQuestion.Iteration(ar[i].Index).AvailableResponses[2].IsSelected, " checked=\"checked\"", "")
     			attrCheckedRight = On(CurrentQuestion.Iteration(ar[i].Index).AvailableResponses[1].IsSelected, " checked=\"checked\"", "")
-    			classSelected = On(CurrentQuestion.Iteration(ar[i].Index).AvailableResponses[2].IsSelected, " swipe-left", On(CurrentQuestion.Iteration(ar[i].Index).AvailableResponses[1].IsSelected," swipe-right",""))
+    			classSelected = On(CurrentQuestion.Iteration(ar[i].Index).AvailableResponses[2].IsSelected, " swipe-left", On(CurrentQuestion.Iteration(ar[i].Index).AvailableResponses[1].IsSelected," swipe-right"," swipe-center"))
             %}
             <div class="swipe-row">
                 <label for="{%= inputName %}_{%= inputValueLeft %}" class="swipe-col swipe-col-left"><input type="radio" name="{%= inputName %}" id="{%= inputName %}_{%= inputValueLeft %}" value="{%= inputValueLeft %}" {%:= attrCheckedLeft %} /></label>
+								{% IF (middleAsDk <> "0") Then %}
+									<label for="{%= inputName %}_0" class="swipe-col swipe-col-middle">
+										<input type="radio" name="{%= inputName %}" id="{%= inputName %}_0" value="-999999" checked="checked"/>
+									</label>
+								{% EndIf %}
                 <label for="{%= inputName %}_{%= inputValueRight %}" class="swipe-col swipe-col-right"><input type="radio" name="{%= inputName %}" id="{%= inputName %}_{%= inputValueRight %}" value="{%= inputValueRight %}" {%:= attrCheckedRight %} /></label>
                 <div class="swipe-image{%= classSelected %}" data-id="C{%= imageId %}">
                     <div class="swipe-image-content" unselectable="on">
@@ -52,6 +64,9 @@
             {% If ((CurrentADC.PropValue("headerFixed") = "2") and ((i Mod CurrentADC.PropValue("repeatnitems").ToNumber()) = 0)) Then %}
             <div class="swipe-row-headline">
                 <h2 class="swipe-headline-left">{%:= arResponses[2].Caption %}</h2>
+								{% IF (middleAsDk <> "0") Then %}
+								<h2 class="swipe-headline-right">{%:= CurrentADC.PropValue("dkPanelCaption") %}</h2>
+								{% EndIf %}
                 <h2 class="swipe-headline-right">{%:= arResponses[1].Caption %}</h2>
             </div>
             {% EndIf %}
