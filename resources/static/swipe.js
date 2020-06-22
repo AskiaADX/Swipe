@@ -313,24 +313,26 @@
             imgContainer.style.MozTransform = 'translate(' + parseInt(toRight) + 'px,0)';
             imgContainer.style.transform = 'translate(' + parseInt(toRight) + 'px,0)';
         }
-        for (var im = 0, jm = middleItems.length; im < jm; im++) {
-            var midElement;
-            if (useMiddleAsDk) {
-              imgContainer = middleItems[im].parentElement.children[3];
-              midElement = middleItems[im].parentElement.children[1];
-            }
 
-            imgContainer.style.msTransitionDuration = '0.2s';
-            imgContainer.style.WebkitTransitionDuration = '0.2s';
-            imgContainer.style.MozTransitionDuration = '0.2s';
-            imgContainer.style.transitionDuration = '0.2s';
+        if (useMiddleAsDk) {        
+          for (var im = 0, jm = middleItems.length; im < jm; im++) {
+              var midElement;
+                imgContainer = middleItems[im].parentElement.children[3];
+                midElement = middleItems[im].parentElement.children[1];
 
-            var toMiddle = 0;
-            imgContainer.style.msTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
-            imgContainer.style.WebkitTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
-            imgContainer.style.MozTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
-            imgContainer.style.transform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+              imgContainer.style.msTransitionDuration = '0.2s';
+              imgContainer.style.WebkitTransitionDuration = '0.2s';
+              imgContainer.style.MozTransitionDuration = '0.2s';
+              imgContainer.style.transitionDuration = '0.2s';
+
+              var toMiddle = 0;
+              imgContainer.style.msTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+              imgContainer.style.WebkitTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+              imgContainer.style.MozTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+              imgContainer.style.transform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+          }
         }
+
     }
 
     /**
