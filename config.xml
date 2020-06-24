@@ -7,8 +7,8 @@
   <info>
     <name>Swipe</name>
     <guid>19f954f0-adb6-4a41-b7fb-679de5e41369</guid>
-    <version>3.0.2</version>
-    <date>2018-09-05</date>
+    <version>3.1.1</version>
+    <date>2020-06-22</date>
     <description><![CDATA[]]></description>
     <company>Askia</company>
     <author><![CDATA[Jerome Duparc <jeromed@askia.com>]]></author>
@@ -135,6 +135,36 @@
       <property xsi:type="standardProperty" id="captionCells" name="Caption of the cells when hover" type="string" mode="dynamic" require="false" visible="true">
         <description><![CDATA[Caption of the cells when hover]]></description>
         <value></value>
+      </property>
+    </category>
+    <category id="dk" name="DK Panel">
+      <property xsi:type="standardProperty" id="middleAsDk" name="Use middle as DK" type="string" mode="dynamic" require="true" visible="true">
+        <description><![CDATA[Use middle panel as DK]]></description>
+        <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="dkPanelCaption" name="DK panel caption" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[The caption of the don't know middle panel]]></description>
+        <value><![CDATA[Don't know]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="captionCellsDk" name="Caption of the DK cells when hover" type="string" mode="dynamic" require="false" visible="true">
+        <description><![CDATA[Caption of the DK cells when hover]]></description>
+        <value></value>
+      </property>
+      <property xsi:type="standardProperty" id="borderMiddleColour" name="Border middle colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The border middle colour]]></description>
+        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="backgroundMiddleColour" name="Background middle colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The background middle colour]]></description>
+        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
+      </property>
+      <property xsi:type="standardProperty" id="backgroundMiddleColourHover" name="Background middle colour hover" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The background middle colour hover]]></description>
+        <value><![CDATA[{%= Theme.NeutralColor %}]]></value>
       </property>
     </category>
     <category id="leftresponse" name="Left Panel">

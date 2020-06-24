@@ -79,33 +79,14 @@ html {
     width: 32%;}
 
 .swipe-col-left,
-.swipe-col-right {
+.swipe-col-right,
+.swipe-col-middle {
     width: calc(32% - 0.5em);
 }
 
 .swipe-image {
     width: calc(32% - 0.5em);
-    left: calc(34% + 5px);
-}
-
-@media screen and (max-width: 600px) {
-    .swipe-row-headline h2,
-    .swipe-value-block {
-        width: 49%;
-    }
-
-    .swipe-col {
-        width: 48%;}
-
-    .swipe-col-left,
-    .swipe-col-right {
-        width: calc(48% - 0.5em);
-    }
-
-    .swipe-image {
-        width: calc(48% - 0.5em);
-        left: calc(25% + 5px);
-    }
+    left: calc(32% + 1.35em);
 }
 
 .swipe-row-headline h2.swipe-headline-left {
@@ -114,6 +95,11 @@ html {
 
 .swipe-row-headline h2.swipe-headline-right {
     right: 0;
+}
+
+.swipe-row-headline h2.swipe-headline-middle {
+    right: 0;
+    left: 0;
 }
 
 .swipe-value-block h2 {
@@ -136,9 +122,11 @@ html {
 .swipe-value-block-left {
     left: 0;
 }
-
 .swipe-value-block-right {
     right: 0;
+}
+.swipe-value-block-middle {
+    right: calc(100% / 3 + .1em);
 }
 
 .swipe-col {
@@ -158,10 +146,13 @@ html {
     left: 0.5em;
     cursor: pointer;
 }
-
 .swipe-col-right {
     right: 0.5em;
     cursor: pointer;
+}
+.swipe-col-middle {
+  left: calc(100%/3 + 0.6em);
+  cursor: pointer;
 }
 
 .swipe-image {

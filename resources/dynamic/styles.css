@@ -7,6 +7,12 @@ ElseIf (CurrentADC.PropValue("controlAlign") = "right" ) Then
 Else
     controlAlign = "0 auto 0 0"
 EndIf
+
+Dim middleAsDk = CurrentADC.PropValue("middleAsDk")
+Dim isAllowDK = CurrentQuestion.IsAllowDK
+IF (isAllowDK <> true) Then
+  middleAsDk = "0"
+EndIf
 %}
 #adc_{%= CurrentADC.InstanceId %} {
     max-width: {%= CurrentADC.PropValue("controlWidth") %};
@@ -20,7 +26,8 @@ EndIf
     opacity: 0;
 }
 #adc_{%= CurrentADC.InstanceId %} .swipe-col-left:hover,
-#adc_{%= CurrentADC.InstanceId %} .swipe-col-right:hover {
+#adc_{%= CurrentADC.InstanceId %} .swipe-col-right:hover,
+#adc_{%= CurrentADC.InstanceId %} .swipe-col-middle:hover {
     opacity: 1;
 }
 {% EndIf %}
@@ -30,16 +37,22 @@ EndIf
     display: flex;
     align-items: center;
     justify-content: center;
-	width: 100%;
+	  width: 100%;
     font-size: {%= Theme.SmallFS %};
 }
+#adc_{%= CurrentADC.InstanceId %} .swipe-col-middle:before {
+  content: '{%= CurrentADC.PropValue("captionCellsDk") %}';
+}
+
 #adc_{%= CurrentADC.InstanceId %} .swipe-image .circle {
     background-color: rgba({%= CurrentADC.PropValue("fontColour").ToRGB() %},.1);
     border-radius: {%= CurrentADC.PropValue("borderRadius") %};
 }
+
 #adc_{%= CurrentADC.InstanceId %} .swipe-value-block {
     border-style: {%= CurrentADC.PropValue("borderStyle") %};
 }
+
 #adc_{%= CurrentADC.InstanceId %} .swipe-value-block-left {
     border-radius: {%= CurrentADC.PropValue("borderRadius") %};
     border-width: {%= CurrentADC.PropValue("borderThickness") %};
@@ -50,23 +63,38 @@ EndIf
     border-width: {%= CurrentADC.PropValue("borderThickness") %};
     border-color: rgba({%= CurrentADC.PropValue("borderRightColour").ToRGB() %}, 1);
 }
+#adc_{%= CurrentADC.InstanceId %} .swipe-value-block-middle {
+    border-radius: {%= CurrentADC.PropValue("borderRadius") %};
+    border-width: {%= CurrentADC.PropValue("borderThickness") %};
+    border-color: rgba({%= CurrentADC.PropValue("borderMiddleColour").ToRGB() %}, 1);
+}
+
 #adc_{%= CurrentADC.InstanceId %} .swipe-value-block-left {
     background-color: rgba({%= CurrentADC.PropValue("backgroundLeftColour").ToRGB() %}, 1);
 }
 #adc_{%= CurrentADC.InstanceId %} .swipe-value-block-right {
     background-color: rgba({%= CurrentADC.PropValue("backgroundRightColour").ToRGB() %}, 1);
 }
+#adc_{%= CurrentADC.InstanceId %} .swipe-value-block-middle {
+    background-color: rgba({%= CurrentADC.PropValue("backgroundMiddleColour").ToRGB() %}, 1);
+}
+
 #adc_{%= CurrentADC.InstanceId %} .swipe-col-left {
     border-radius: {%= CurrentADC.PropValue("borderRadius") %};
     background-color: rgba({%= CurrentADC.PropValue("backgroundLeftColourHover").ToRGB() %}, 1);
     box-shadow: 1px 1px 3px rgba({%= Theme.BlackColor.ToRGB() %}, 0.15) inset;
 }
-
 #adc_{%= CurrentADC.InstanceId %} .swipe-col-right {
     border-radius: {%= CurrentADC.PropValue("borderRadius") %};
     background-color: rgba({%= CurrentADC.PropValue("backgroundRightColourHover").ToRGB() %}, 1);
     box-shadow: -1px 1px 3px rgba({%= Theme.BlackColor.ToRGB() %}, 0.15) inset;
 }
+#adc_{%= CurrentADC.InstanceId %} .swipe-col-middle {
+    border-radius: {%= CurrentADC.PropValue("borderRadius") %};
+    background-color: rgba({%= CurrentADC.PropValue("backgroundMiddleColourHover").ToRGB() %}, 1);
+    box-shadow: -1px 1px 3px rgba({%= Theme.BlackColor.ToRGB() %}, 0.15) inset;
+}
+
 #adc_{%= CurrentADC.InstanceId %} .swipe-image {
     background: rgb({%= CurrentADC.PropValue("backgroundColour").ToRGB() %});
     color: rgb({%= CurrentADC.PropValue("fontColour").ToRGB() %});
@@ -93,6 +121,55 @@ EndIf
     pointer-events: none;
     border: 0;
 }
+
+@media screen and (max-width: 600px) {
+  {% If (middleAsDk <> "0") Then %}
+    #adc_{%= CurrentADC.InstanceId %} .swipe-row-headline h2,
+    #adc_{%= CurrentADC.InstanceId %} .swipe-value-block {
+        width: 32%;
+    }
+
+    #adc_{%= CurrentADC.InstanceId %} .swipe-col {
+        width: 32%;
+    }
+
+    #adc_{%= CurrentADC.InstanceId %} .swipe-col-left,
+    #adc_{%= CurrentADC.InstanceId %} .swipe-col-right,
+    #adc_{%= CurrentADC.InstanceId %} .swipe-col-middle {
+        width: calc(30% - 0.5em);
+    }
+
+    #adc_{%= CurrentADC.InstanceId %} .swipe-col-middle {
+        left: calc(36%);
+    }
+
+    #adc_{%= CurrentADC.InstanceId %} .swipe-image {
+        width: calc(30% - 0.5em);
+        left: calc(36%);
+    }
+  {% Else %}
+    #adc_{%= CurrentADC.InstanceId %} .swipe-row-headline h2,
+    #adc_{%= CurrentADC.InstanceId %} .swipe-value-block {
+        width: 49%;
+    }
+
+    #adc_{%= CurrentADC.InstanceId %} .swipe-col {
+        width: 48%;
+    }
+
+    #adc_{%= CurrentADC.InstanceId %} .swipe-col-left,
+    #adc_{%= CurrentADC.InstanceId %} .swipe-col-right,
+    #adc_{%= CurrentADC.InstanceId %} .swipe-col-middle {
+        width: calc(48% - 0.5em);
+    }
+
+    #adc_{%= CurrentADC.InstanceId %} .swipe-image {
+        width: calc(48% - 0.5em);
+        left: calc(25% + 5px);
+    }
+  {% EndIf %}
+}
+
 {% If (CurrentADC.PropValue("use") = "1") Then %}
 @media screen and (min-width: 480px) {
     #adc_{%= CurrentADC.InstanceId %} .swipe-image img {

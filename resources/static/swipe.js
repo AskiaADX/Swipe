@@ -5,6 +5,7 @@
 (function () {
 
     var touchesInAction = {};
+    var useMiddleAsDk;
 
     /**
      * Add event listener in DOMElement
@@ -201,11 +202,18 @@
      * @param {Object} rowContainer Container of the item to move
      * @param {String} dir direction to move the item (left or right)
      */
-    function moveSwipe (rowContainer, dir) {
+    function moveSwipe (rowContainer, dir, options) {
 
-        var imgContainer = rowContainer.children[2];
-        var leftElement = rowContainer.children[0];
-        var rightElement = rowContainer.children[1];
+        if (useMiddleAsDk) {
+          var leftElement = rowContainer.children[0];
+          var midElement = rowContainer.children[1];
+          var rightElement = rowContainer.children[2];
+          var imgContainer = rowContainer.children[3];
+        } else {
+          var leftElement = rowContainer.children[0];
+          var rightElement = rowContainer.children[1];
+          var imgContainer = rowContainer.children[2];
+        }
 
         imgContainer.style.msTransitionDuration = '0.2s';
         imgContainer.style.WebkitTransitionDuration = '0.2s';
@@ -218,6 +226,7 @@
 
         if (dir === 'right') {
             var toRight = (rightElement.offsetLeft + rightElement.offsetWidth) - (imgContainer.offsetLeft + imgContainer.offsetWidth);
+
             imgContainer.style.msTransform = 'translate(' + parseInt(toRight) + 'px,0)';
             imgContainer.style.WebkitTransform = 'translate(' + parseInt(toRight) + 'px,0)';
             imgContainer.style.MozTransform = 'translate(' + parseInt(toRight) + 'px,0)';
@@ -226,13 +235,25 @@
             setTimeout(function () {
                 materialEffect(imgContainer);
             }, 200);
-        } else {
+        } else if (dir === 'left') {
             var toLeft = (leftElement.offsetLeft - imgContainer.offsetLeft);
+
             imgContainer.style.msTransform = 'translate(' + parseInt(toLeft) + 'px,0)';
             imgContainer.style.WebkitTransform = 'translate(' + parseInt(toLeft) + 'px,0)';
             imgContainer.style.MozTransform = 'translate(' + parseInt(toLeft) + 'px,0)';
             imgContainer.style.transform = 'translate(' + parseInt(toLeft) + 'px,0)';
             addClass(imgContainer, 'swipe-left');
+            setTimeout(function () {
+                materialEffect(imgContainer);
+            }, 200);
+        } else if (dir === 'middle') {
+            var toMiddle = (midElement.offsetLeft - imgContainer.offsetLeft);
+
+            imgContainer.style.msTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+            imgContainer.style.WebkitTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+            imgContainer.style.MozTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+            imgContainer.style.transform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+            addClass(imgContainer, 'swipe-center');
             setTimeout(function () {
                 materialEffect(imgContainer);
             }, 200);
@@ -244,15 +265,21 @@
      *
      * @param {Object} rowContainer Container of the item to move
      */
-    function changeDisplay (that) {
-
+    function changeDisplay (that, options) {
         var leftItems = document.getElementById('adc_' + that.instanceId).querySelectorAll('.swipe-left');
         var rightItems = document.getElementById('adc_' + that.instanceId).querySelectorAll('.swipe-right');
+        var middleItems = document.getElementById('adc_' + that.instanceId).querySelectorAll('.swipe-center');
         var imgContainer;
 
         for (var il = 0, jl = leftItems.length; il < jl; il++) {
-            imgContainer = leftItems[il].parentElement.children[2];
-            var leftElement = leftItems[il].parentElement.children[0];
+            var leftElement;
+            if (useMiddleAsDk) {
+              imgContainer = leftItems[il].parentElement.children[3];
+              leftElement = leftItems[il].parentElement.children[0];
+            } else {
+              imgContainer = leftItems[il].parentElement.children[2];
+              leftElement = leftItems[il].parentElement.children[0];
+            }
 
             imgContainer.style.msTransitionDuration = '0.2s';
             imgContainer.style.WebkitTransitionDuration = '0.2s';
@@ -266,8 +293,14 @@
             imgContainer.style.transform = 'translate(' + parseInt(toLeft) + 'px,0)';
         }
         for (var ir = 0, jr = rightItems.length; ir < jr; ir++) {
-            imgContainer = rightItems[ir].parentElement.children[2];
-            var rightElement = rightItems[ir].parentElement.children[1];
+            var rightElement;
+            if (useMiddleAsDk) {
+              imgContainer = rightItems[ir].parentElement.children[3];
+              rightElement = rightItems[ir].parentElement.children[2];
+            } else {
+              imgContainer = rightItems[ir].parentElement.children[2];
+              rightElement = rightItems[ir].parentElement.children[1];
+            }
 
             imgContainer.style.msTransitionDuration = '0.2s';
             imgContainer.style.WebkitTransitionDuration = '0.2s';
@@ -280,6 +313,26 @@
             imgContainer.style.MozTransform = 'translate(' + parseInt(toRight) + 'px,0)';
             imgContainer.style.transform = 'translate(' + parseInt(toRight) + 'px,0)';
         }
+
+        if (useMiddleAsDk) {        
+          for (var im = 0, jm = middleItems.length; im < jm; im++) {
+              var midElement;
+                imgContainer = middleItems[im].parentElement.children[3];
+                midElement = middleItems[im].parentElement.children[1];
+
+              imgContainer.style.msTransitionDuration = '0.2s';
+              imgContainer.style.WebkitTransitionDuration = '0.2s';
+              imgContainer.style.MozTransitionDuration = '0.2s';
+              imgContainer.style.transitionDuration = '0.2s';
+
+              var toMiddle = 0;
+              imgContainer.style.msTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+              imgContainer.style.WebkitTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+              imgContainer.style.MozTransform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+              imgContainer.style.transform = 'translate(' + parseInt(toMiddle) + 'px,0)';
+          }
+        }
+
     }
 
     /**
@@ -295,9 +348,11 @@
         }
 
         if (el.nodeName === 'LABEL' && el.className.indexOf('swipe-col-right') >= 0) {
-            moveSwipe(el.parentElement, 'right');
+            moveSwipe(el.parentElement, 'right', that);
         } else if (el.nodeName === 'LABEL' && el.className.indexOf('swipe-col-left') >= 0) {
-            moveSwipe(el.parentElement, 'left');
+            moveSwipe(el.parentElement, 'left', that);
+        } else if (el.nodeName === 'LABEL' && el.className.indexOf('swipe-col-middle') >= 0) {
+            moveSwipe(el.parentElement, 'middle', that);
         }
         if (window.askia &&
             window.arrLiveRoutingShortcut &&
@@ -376,7 +431,13 @@
         var distance = 0;
         var minDistance = 30;
         var maxLeftDistance = parseFloat(currentItem.parentElement.children[0].offsetLeft) - parseFloat(currentItem.offsetLeft);
-        var maxRightDistance = (parseFloat(currentItem.parentElement.children[1].offsetLeft) + parseFloat(currentItem.parentElement.children[1].offsetWidth)) - (parseFloat(currentItem.offsetLeft) + parseFloat(currentItem.offsetWidth));
+        var maxRightDistance;
+
+        if (useMiddleAsDk) {
+          maxRightDistance = (parseFloat(currentItem.parentElement.children[2].offsetLeft) + parseFloat(currentItem.parentElement.children[2].offsetWidth)) - (parseFloat(currentItem.offsetLeft) + parseFloat(currentItem.offsetWidth));
+        } else {
+          maxRightDistance = (parseFloat(currentItem.parentElement.children[1].offsetLeft) + parseFloat(currentItem.parentElement.children[1].offsetWidth)) - (parseFloat(currentItem.offsetLeft) + parseFloat(currentItem.offsetWidth));
+        }
 
         /* access stored touch info on touchend */
         var theTouchInfo = touchesInAction[touches[0].identifier];
@@ -397,14 +458,27 @@
             currentItem.parentElement.children[0].click();
         }
 
-        if (distance > minDistance ) {
+        if (distance > minDistance) {
             distance = maxRightDistance;
             removeClass(currentItem, 'swipe-center');
             removeClass(currentItem, 'swipe-left');
             removeClass(currentItem, 'swipe-right');
             addClass(currentItem, 'swipe-right');
-            currentItem.parentElement.children[1].click();
+            if (useMiddleAsDk) {
+              currentItem.parentElement.children[2].click();
+            } else {
+              currentItem.parentElement.children[1].click();
+            }
         }
+
+        if (useMiddleAsDk & distance == 0) {
+              removeClass(currentItem, 'swipe-center');
+              removeClass(currentItem, 'swipe-left');
+              removeClass(currentItem, 'swipe-right');
+              addClass(currentItem, 'swipe-center');
+              currentItem.parentElement.children[1].click();
+        }
+
 
         currentItem.style.msTransitionDuration = '0.2s';
         currentItem.style.WebkitTransitionDuration = '0.2s';
@@ -460,6 +534,10 @@
             distance = maxLeftDistance;
         }
 
+        if (distance == 0) {
+          distance = 0;
+        }
+
         if (distance > 0 && distance > maxRightDistance) {
             distance = maxRightDistance;
         }
@@ -487,19 +565,28 @@
 
         var distance = 0;
         var minDistance = 30;
+
         var maxLeftDistance = parseFloat(currentItem.parentElement.children[0].offsetLeft) - parseFloat(currentItem.offsetLeft);
-        var maxRightDistance = (parseFloat(currentItem.parentElement.children[1].offsetLeft) + parseFloat(currentItem.parentElement.children[1].offsetWidth)) - (parseFloat(currentItem.offsetLeft) + parseFloat(currentItem.offsetWidth));
+        var maxRightDistance;
+
+        if (useMiddleAsDk) {
+          maxRightDistance = (parseFloat(currentItem.parentElement.children[2].offsetLeft) + parseFloat(currentItem.parentElement.children[2].offsetWidth)) - (parseFloat(currentItem.offsetLeft) + parseFloat(currentItem.offsetWidth));
+        } else {
+          maxRightDistance = (parseFloat(currentItem.parentElement.children[1].offsetLeft) + parseFloat(currentItem.parentElement.children[1].offsetWidth)) - (parseFloat(currentItem.offsetLeft) + parseFloat(currentItem.offsetWidth));
+        }
+
 
         var theTouchInfo = touchesInAction[0];
         theTouchInfo.dx = touches.pageX - theTouchInfo.pageX; /* x-distance moved since move start */
         theTouchInfo.dy = touches.pageY - theTouchInfo.pageY; /* y-distance moved since move start */
         distance = parseFloat(theTouchInfo.dx);
 
+
         if (distance >= -minDistance && distance <= minDistance) {
             distance = theTouchInfo.translateCurrentValue;
         }
 
-        if (distance < -minDistance ) {
+        if (distance < -minDistance) {
             distance = maxLeftDistance;
             removeClass(currentItem, 'swipe-center');
             removeClass(currentItem, 'swipe-left');
@@ -508,14 +595,27 @@
             currentItem.parentElement.children[0].click();
         }
 
-        if (distance > minDistance ) {
+        if (distance > minDistance) {
             distance = maxRightDistance;
             removeClass(currentItem, 'swipe-center');
             removeClass(currentItem, 'swipe-left');
             removeClass(currentItem, 'swipe-right');
             addClass(currentItem, 'swipe-right');
-            currentItem.parentElement.children[1].click();
+            if (useMiddleAsDk) {
+              currentItem.parentElement.children[2].click();
+            } else {
+              currentItem.parentElement.children[1].click();
+            }
         }
+
+        if (useMiddleAsDk & distance == 0) {
+              removeClass(currentItem, 'swipe-center');
+              removeClass(currentItem, 'swipe-left');
+              removeClass(currentItem, 'swipe-right');
+              addClass(currentItem, 'swipe-center');
+              currentItem.parentElement.children[1].click();
+        }
+
 
         currentItem.style.msTransitionDuration = '0.2s';
         currentItem.style.WebkitTransitionDuration = '0.2s';
@@ -540,6 +640,15 @@
         this.instanceId = options.instanceId || 1;
         this.headerFixed = options.headerFixed || 0;
         this.currentQuestion = options.currentQuestion || '';
+        this.middleAsDk = options.middleAsDk || 0;
+        this.isAllowDK = options.isAllowDK;
+
+        let isAllowDK = this.isAllowDK;
+
+        useMiddleAsDk = this.middleAsDk;
+        if (!isAllowDK) {
+          useMiddleAsDk = 0;
+        }
 
         addEvent(document.getElementById('adc_' + this.instanceId), 'change',
             (function (passedInElement) {
@@ -551,7 +660,7 @@
         addEvent(window, 'resize',
             (function (passedInElement) {
                 return function () {
-                    changeDisplay(passedInElement);
+                    changeDisplay(passedInElement, options);
                 };
             }(this)));
 
@@ -571,7 +680,7 @@
             addEvent(zooms[i], 'mousedown', mouseStartHandler);
         }
 
-        changeDisplay(this);
+        changeDisplay(this, options);
 
     }
 
